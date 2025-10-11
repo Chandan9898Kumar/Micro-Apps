@@ -5,6 +5,7 @@
 		"baseUrl": "./",
 		"allowJs": true,
 		"skipLibCheck": true,
+		"types": ["node"],
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"strict": true,

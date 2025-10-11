@@ -1,19 +1,42 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import  { useState } from "react";
 
-const Counter = () => {
+interface CounterProps {
+  search?: string;
+  setSearch?: (value: string) => void;
+}
+
+const Counter = ({ search, setSearch }: CounterProps) => {
   const [count, setCount] = useState(1);
 
+  const handleClick = () => {
+    const newCount = count * 2;
+    if (setSearch) {
+      setSearch("user clicks" + "  " + newCount);
+    }
+    setCount(newCount);
+  };
+console.log("search in app2", search);
   return (
-    <Flex color="#000" gap="1rem" direction="column">
-      <Text>
-        Add by one each click <strong>APP-2</strong>
-      </Text>
-      <Text>Your click count : {count} </Text>
-      <Button onClick={() => setCount((prevState) => prevState * 2)}>
+    <div
+      style={{
+        color: "#000",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      <p>
+        Multiply by 2 each click <strong>APP-2</strong>
+      </p>
+      <p>Your click count : {count}</p>
+      <button
+        onClick={handleClick}
+        style={{ padding: "8px 16px", cursor: "pointer",    background: "aquamarine"}}
+      >
         Click me
-      </Button>
-    </Flex>
+      </button>
+      <div>Data Coming from Container / Host app : {!search?.length ? "No data" : search}</div>
+    </div>
   );
 };
 

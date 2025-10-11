@@ -1,18 +1,40 @@
-import { Text, Button, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Counter = () => {
-	const [count, setCount] = useState(0);
+interface CounterProps {
+  id?: number;
+}
 
-	return (
-		<Flex color="#000" gap="1rem" direction="column">
-			<Text>
-				Add by one each click <strong>APP-1</strong>
-			</Text>
-			<Text>Your click count : {count} </Text>
-			<Button onClick={() => setCount(count + 1)}>Click me</Button>
-		</Flex>
-	);
+const Counter = ({ id }: CounterProps) => {
+  const [count, setCount] = useState(1);
+
+  const handleClick = () => {
+    const newCount = count + 1;
+
+    setCount(newCount);
+  };
+
+  return (
+    <div
+      style={{
+        color: "#000",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      <p>
+        Add by one each click <strong>APP-1</strong>
+      </p>
+      {id && <p>Container ID: {id}</p>}
+      <p>Your click count : {count}</p>
+      <button
+        onClick={handleClick}
+        style={{ padding: "8px 16px", cursor: "pointer", background: "pink" }}
+      >
+        Click me
+      </button>
+    </div>
+  );
 };
 
 export default Counter;
