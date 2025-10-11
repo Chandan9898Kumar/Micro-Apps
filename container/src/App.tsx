@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ErrorBoundary from "./components/ErrorBoundary";
+
 const CounterAppOne = React.lazy(() => import("app1/CounterAppOne"));
 const CounterAppTwo = React.lazy(() => import("app2/CounterAppTwo"));
 var version = process.env.BUILD_DATE;
@@ -109,141 +111,153 @@ const App: React.FC = () => {
           maxWidth: "1000px",
         }}
       >
-        <React.Suspense
-          fallback={
+        <ErrorBoundary appName="APP-1">
+          <React.Suspense
+            fallback={
+              <div
+                style={{
+                  width: "350px",
+                  height: "250px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#1a1a2e",
+                  borderRadius: "15px",
+                  color: "#888",
+                  border: "2px solid #333"
+                }}
+              >
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>🚀</div>
+                  <div>Loading APP-1...</div>
+                </div>
+              </div>
+            }
+          >
             <div
               style={{
                 width: "350px",
                 height: "500px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#1a1a2e",
+                padding: "1.5rem",
+                border: "2px solid #333",
                 borderRadius: "15px",
-                color: "#888",
-              }}
-            >
-              Loading...
-            </div>
-          }
-        >
-          <div
-            style={{
-              width: "350px",
-              height: "500px",
-              padding: "1.5rem",
-              border: "2px solid #333",
-              borderRadius: "15px",
-              backgroundColor: "#ffffff",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              display: "flex",
-              flexDirection: "column",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-5px)";
-              e.currentTarget.style.boxShadow =
-                "0 12px 40px rgba(102, 126, 234, 0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3)";
-            }}
-          >
-            <h2
-              style={{
-                color: "#667eea",
-                marginBottom: "1rem",
-                fontSize: "1.5rem",
-                fontWeight: "600",
-                textAlign: "center",
-              }}
-            >
-              🚀 APP-1
-            </h2>
-            <div
-              style={{
-                flex: 1,
+                backgroundColor: "#ffffff",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                flexDirection: "column",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-5px)";
+                e.currentTarget.style.boxShadow =
+                  "0 12px 40px rgba(102, 126, 234, 0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3)";
               }}
             >
-              <CounterAppOne id={1233} />
+              <h2
+                style={{
+                  color: "#667eea",
+                  marginBottom: "1rem",
+                  fontSize: "1.5rem",
+                  fontWeight: "600",
+                  textAlign: "center",
+                }}
+              >
+                🚀 APP-1
+              </h2>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CounterAppOne id={1233} />
+              </div>
             </div>
-          </div>
-        </React.Suspense>
+          </React.Suspense>
+        </ErrorBoundary>
 
-        <React.Suspense
-          fallback={
+        <ErrorBoundary appName="APP-2">
+          <React.Suspense
+            fallback={
+              <div
+                style={{
+                  width: "350px",
+                  height: "250px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#1a1a2e",
+                  borderRadius: "15px",
+                  color: "#888",
+                  border: "2px solid #333"
+                }}
+              >
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⚡</div>
+                  <div>Loading APP-2...</div>
+                </div>
+              </div>
+            }
+          >
             <div
               style={{
                 width: "350px",
                 height: "500px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#1a1a2e",
+                padding: "1.5rem",
+                border: "2px solid #333",
                 borderRadius: "15px",
-                color: "#888",
-              }}
-            >
-              Loading...
-            </div>
-          }
-        >
-          <div
-            style={{
-              width: "350px",
-              height: "500px",
-              padding: "1.5rem",
-              border: "2px solid #333",
-              borderRadius: "15px",
-              backgroundColor: "#ffffff",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              display: "flex",
-              flexDirection: "column",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-5px)";
-              e.currentTarget.style.boxShadow =
-                "0 12px 40px rgba(118, 75, 162, 0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3)";
-            }}
-          >
-            <h2
-              style={{
-                color: "#764ba2",
-                marginBottom: "1rem",
-                fontSize: "1.5rem",
-                fontWeight: "600",
-                textAlign: "center",
-              }}
-            >
-              ⚡ APP-2
-            </h2>
-            <div
-              style={{
-                flex: 1,
+                backgroundColor: "#ffffff",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                flexDirection: "column",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-5px)";
+                e.currentTarget.style.boxShadow =
+                  "0 12px 40px rgba(118, 75, 162, 0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3)";
               }}
             >
-              <CounterAppTwo search={search} setSearch={setSearch} />
+              <h2
+                style={{
+                  color: "#764ba2",
+                  marginBottom: "1rem",
+                  fontSize: "1.5rem",
+                  fontWeight: "600",
+                  textAlign: "center",
+                }}
+              >
+                ⚡ APP-2
+              </h2>
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CounterAppTwo search={search} setSearch={setSearch} />
+              </div>
             </div>
-          </div>
-        </React.Suspense>
+          </React.Suspense>
+        </ErrorBoundary>
       </div>
 
       {/* Footer */}
       <div style={{ marginTop: "3rem" }}>
         <a
-          href="https://github.com/ogzhanolguncu/react-typescript-module-federation"
+          href="_"
           target="_blank"
           rel="noopener noreferrer"
           style={{
