@@ -65,8 +65,8 @@ module.exports = (env, argv) => {
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          app1: "app1@http://localhost:3001/remoteEntry.js",
-          app2: "app2@http://localhost:3002/remoteEntry.js",
+          app1: isProduction ? process.env.PROD_APP1 : process.env.DEV_APP1,
+          app2: isProduction ? process.env.PROD_APP2 : process.env.DEV_APP2,
         },
         shared: {
           react: { 

@@ -31,7 +31,30 @@ Container (netlify.app) → Loads remotes from → App1 (netlify.app) + App2 (ne
 **Automatic Updates** - When you deploy App2:
 1. App2 builds new `remoteEntry.js`
 2. Container fetches latest `remoteEntry.js` at runtime
-3. Changes appear immediately (no Container redeployment needed!)
+3. Changes appear immediately (no Container redeployment needed!) : 
+a. New remoteEntry.js created when build and deploye remote apps.
+b. Container/host automatically gets the new remote App code at runtime!
+
+
+### NOTE :
+
+> Container must be rebuilt whenever micro-app URLs change. URL you will get when you deploy the app.
+
+`Meaning : When you change the URLs/endpoints where micro-apps are hosted:`
+
+```js
+# Changing from:
+PROD_APP2="app2@https://old-domain.netlify.app/remoteEntry.js"
+
+# To:
+PROD_APP2="app2@https://new-domain.netlify.app/remoteEntry.js"
+
+# You must rebuild and redeploy Container
+
+
+```
+
+
 
 ## 🏗️ Production Architecture
 

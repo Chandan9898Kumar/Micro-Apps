@@ -4,7 +4,7 @@ interface CounterProps {
   id?: number;
 }
 
-const Counter = ({ id }: CounterProps) => {
+const Counter = ({ id = 1 }: CounterProps) => {
   const [count, setCount] = useState(1);
 
   const handleClick = () => {
