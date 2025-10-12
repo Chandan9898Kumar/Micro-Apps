@@ -48,6 +48,9 @@ module.exports = (env, argv) => {
         exposes: {
           "./CounterAppTwo": "./src/components/CounterAppTwo",
         },
+        remotes: {
+          container: "container@http://localhost:3000/remoteEntry.js",
+        },
         shared: {
           react: { 
             singleton: true, 

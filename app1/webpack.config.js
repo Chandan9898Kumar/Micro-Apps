@@ -43,10 +43,13 @@ module.exports = (env, argv) => {
     
     plugins: [
       new ModuleFederationPlugin({
-        name: "app1",  // ← This becomes the remote name
-        filename: "remoteEntry.js", // ← This is the manifest file
+        name: "app1",
+        filename: "remoteEntry.js",
         exposes: {
-          "./CounterAppOne": "./src/components/CounterAppOne", // ← Expose your component
+          "./CounterAppOne": "./src/components/CounterAppOne",
+        },
+        remotes: {
+          container: "container@http://localhost:3000/remoteEntry.js",
         },
         shared: {
           react: { 

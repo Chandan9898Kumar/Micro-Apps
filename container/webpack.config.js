@@ -64,6 +64,11 @@ module.exports = (env, argv) => {
       
       new ModuleFederationPlugin({
         name: "container",
+        filename: "remoteEntry.js",
+        exposes: {
+          "./utils": "./src/utils/index",
+          "./contextBridge": "./src/utils/contextBridge",
+        },
         remotes: {
           app1: isProduction ? process.env.PROD_APP1 : process.env.DEV_APP1,
           app2: isProduction ? process.env.PROD_APP2 : process.env.DEV_APP2,

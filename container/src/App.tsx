@@ -124,11 +124,13 @@ const App: React.FC = () => {
                   backgroundColor: "#1a1a2e",
                   borderRadius: "15px",
                   color: "#888",
-                  border: "2px solid #333"
+                  border: "2px solid #333",
                 }}
               >
                 <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>🚀</div>
+                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
+                    🚀
+                  </div>
                   <div>Loading APP-1...</div>
                 </div>
               </div>
@@ -195,11 +197,13 @@ const App: React.FC = () => {
                   backgroundColor: "#1a1a2e",
                   borderRadius: "15px",
                   color: "#888",
-                  border: "2px solid #333"
+                  border: "2px solid #333",
                 }}
               >
                 <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⚡</div>
+                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
+                    ⚡
+                  </div>
                   <div>Loading APP-2...</div>
                 </div>
               </div>
