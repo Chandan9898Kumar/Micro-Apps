@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
     mode: isProduction ? "production" : "development",
     
     devServer: {
-      port: 3001,
+      port: 3001, // ← This port number
       open: true,
       hot: true,
       headers: {
@@ -43,10 +43,10 @@ module.exports = (env, argv) => {
     
     plugins: [
       new ModuleFederationPlugin({
-        name: "app1",
-        filename: "remoteEntry.js",
+        name: "app1",  // ← This becomes the remote name
+        filename: "remoteEntry.js", // ← This is the manifest file
         exposes: {
-          "./CounterAppOne": "./src/components/CounterAppOne",
+          "./CounterAppOne": "./src/components/CounterAppOne", // ← Expose your component
         },
         shared: {
           react: { 
