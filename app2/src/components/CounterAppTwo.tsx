@@ -38,7 +38,6 @@ const Counter = ({ search, setSearch }: CounterProps) => {
     setCount(newCount);
   };
 
-  console.log("search in app2", search);
   if (!utils) {
     return (
       <div style={{ padding: "1rem", textAlign: "center" }}>
