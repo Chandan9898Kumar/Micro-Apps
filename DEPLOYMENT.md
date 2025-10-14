@@ -16,9 +16,21 @@ Complete guide for deploying micro-frontend applications to production using Net
 
 ### Key Questions Answered:
 
-#### 1. **Do I need to deploy all apps separately?**
+#### 1. **Do I need to deploy all apps separately?**If it is Manual Setup - One Time( Not CI/CD Automation )
 
 **YES** - Each micro-frontend must be deployed independently:
+
+> you deploy each app to separate URLs:
+
+Like :
+
+```js
+✅ App1 → https://micro-app1.netlify.app
+✅ App2 → https://micro-app2.netlify.app
+✅ Container → https://micro-container.netlify.app
+
+This is a ONE-TIME setup - you create 3 separate Netlify sites.
+```
 
 - ✅ **Container** → Main host application
 - ✅ **App1** → Remote micro-frontend 1
