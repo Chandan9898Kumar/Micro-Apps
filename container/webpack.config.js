@@ -113,6 +113,11 @@ module.exports = (env, argv) => {
             singleton: true, // Only one instance of ReactDOM
             requiredVersion: deps["react-dom"], // Ensure version compatibility
           },
+          zustand: {
+            singleton: true, // Only one instance of Zustand across all apps
+            eager: true, // Load zustand immediately when container loads
+            requiredVersion: deps.zustand, // Ensure version compatibility
+          },
         },
       }),
       

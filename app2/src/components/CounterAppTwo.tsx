@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import { useApp2Store } from "../store/app2Store";
 interface CounterProps {
   search?: string;
   setSearch?: (value: string) => void;
 }
 
 const Counter = ({ search, setSearch }: CounterProps) => {
+  const { filter } = useApp2Store();
   const [count, setCount] = useState(1);
   const [utils, setUtils] = useState<any>(null);
   const [bridge, setBridge] = useState<any>(null);
@@ -78,7 +79,7 @@ const Counter = ({ search, setSearch }: CounterProps) => {
           borderRadius: "4px",
         }}
       >
-        Click me
+        Click me : {filter}
       </button>
       {bridge && authState && authState.isAuthenticated && (
         <button
