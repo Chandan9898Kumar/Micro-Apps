@@ -112,7 +112,77 @@ Micro-frontend/                                    ← ROOT REPOSITORY
 
 ## 🤔 Common Developer Questions
 
-### ❓ **Q1: Why do we have a ROOT repository?**
+### ❓ **Q1: Is this a Monorepo or Polyrepo? How does it work?**
+
+**A:** This is a **MONOREPO** - one Git repository containing multiple applications. Here's how it works:
+
+**Monorepo Structure:**
+```
+Micro-frontend/                    ← Single Git Repository
+├── .git/                         ← One Git history for all apps
+├── app1/                         ← Separate application
+├── app2/                         ← Separate application  
+├── container/                    ← Separate application
+└── package.json                  ← Workspace coordinator
+```
+
+**vs Polyrepo (Alternative Approach):**
+```
+micro-app1-repo/                  ← Separate Git Repository
+├── .git/
+└── app1/
+
+micro-app2-repo/                  ← Separate Git Repository  
+├── .git/
+└── app2/
+
+micro-container-repo/             ← Separate Git Repository
+├── .git/
+└── container/
+```
+
+### ❓ **Q2: How does the Monorepo workflow work?**
+
+**A:** Here's the complete development and deployment flow:
+
+**Development Workflow:**
+```bash
+# 1. Make changes to any app
+vim app1/src/components/CounterAppOne.tsx
+vim app2/src/components/CounterAppTwo.tsx
+
+# 2. Commit from ROOT (all changes in one commit)
+cd Micro-frontend/  # Root directory
+git add .
+git commit -m "Update app1 counter and app2 styling"
+git push origin main
+
+# 3. CI/CD automatically detects which apps changed
+# 4. Only changed apps get deployed
+```
+
+**CI/CD Smart Detection:**
+```yaml
+# .github/workflows/ci-cd.yml
+detect-changes:
+  outputs:
+    app1: ${{ steps.changes.outputs.app1 }}     # true (changed)
+    app2: ${{ steps.changes.outputs.app2 }}     # true (changed)
+    container: ${{ steps.changes.outputs.container }} # false (unchanged)
+
+# Only app1 and app2 jobs run, container skipped
+```
+
+**Deployment Result:**
+```
+✅ App1 → https://micro-app1.netlify.app (updated)
+✅ App2 → https://micro-app2.netlify.app (updated)
+⏸️ Container → https://micro-container.netlify.app (unchanged)
+
+# Container automatically loads new app1 & app2 versions at runtime
+```
+
+### ❓ **Q3: Why do we have a ROOT repository manager?**
 
 **A:** The root repository serves as a **monorepo manager** using Lerna. Here's why:
 
@@ -182,26 +252,94 @@ App node_modules/
 └── zustand/         ← State management
 ```
 
-**Root package.json:**
+**Root package.json (Workspace Manager Only):**
+```json
+{
+  "private": true,
+  "workspaces": {
+    "packages": ["app1", "app2", "container"]
+  },
+  "scripts": {
+    "start": "lerna run --parallel start",
+    "build": "lerna run build"
+  },
+  "devDependencies": {
+    "lerna": "3.22.1"        // ← ONLY workspace management
+  }
+  // ❌ NO application dependencies here!
+}
+```
+
+**App package.json (Actual Dependencies):**
+```json
+{
+  "name": "app1",
+  "dependencies": {
+    "react": "^17.0.2",      // ← Actual application code
+    "zustand": "^4.4.0",     // ← Feature dependencies
+    "@chakra-ui/react": "^1.8.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.67.0",    // ← Build tools
+    "typescript": "^4.2.4"
+  }
+}
+```
+
+**Key Point:** Root has NO application dependencies - only workspace management tools!
+
+### ❓ **Q4: Wait, our root package.json has no React/Zustand - how do apps work?**
+
+**A:** This confuses many developers! Here's the truth:
+
+**Root Dependencies (What We Actually Have):**
 ```json
 {
   "devDependencies": {
-    "lerna": "3.22.1"        // ← Workspace management only
+    "lerna": "3.22.1"  // ← Only this!
   }
+  // ❌ No react, no zustand, no webpack
 }
 ```
 
-**App package.json:**
-```json
-{
-  "dependencies": {
-    "react": "^17.0.2",      // ← Actual application code
-    "zustand": "^4.4.0"      // ← Feature dependencies
-  }
-}
+**How Apps Still Work:**
+```bash
+# Each app has its OWN node_modules:
+app1/node_modules/
+├── react/           ← App1's React
+├── zustand/         ← App1's Zustand  
+├── webpack/         ← App1's Webpack
+└── ...
+
+app2/node_modules/
+├── react/           ← App2's React
+├── zustand/         ← App2's Zustand
+└── ...
+
+container/node_modules/
+├── react/           ← Container's React
+├── zustand/         ← Container's Zustand
+└── ...
 ```
 
-### ❓ **Q4: How does data pass between apps in Development vs Production?**
+**Workspace Magic:**
+```bash
+# When you run from root:
+npm start
+
+# Lerna translates this to:
+cd app1 && npm start &      # Uses app1/node_modules
+cd app2 && npm start &      # Uses app2/node_modules  
+cd container && npm start & # Uses container/node_modules
+```
+
+**Why This Works:**
+- **Workspaces** link packages, don't merge dependencies
+- **Each app** is self-contained with its own dependencies
+- **Root** only provides coordination, not dependencies
+- **Lerna** manages the orchestration
+
+### ❓ **Q5: How does data pass between apps in Development vs Production?**
 
 #### **Development (localhost):**
 ```
