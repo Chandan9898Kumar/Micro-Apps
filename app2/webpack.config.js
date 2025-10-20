@@ -91,8 +91,8 @@ module.exports = (env, argv) => {
             requiredVersion: deps["react-dom"], // Ensure version compatibility
           },
           zustand: {
-            singleton: true, // Use the same zustand instance from container
-            requiredVersion: require('./package.json').peerDependencies.zustand,
+            singleton: true, // Use container's version when available, fallback to own
+            requiredVersion: deps.zustand,
           },
         },
       }),
