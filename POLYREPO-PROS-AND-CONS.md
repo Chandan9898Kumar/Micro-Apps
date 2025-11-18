@@ -680,7 +680,7 @@ Company Y (Partial success):
 | **9** | **Easier compliance & security** – Finance team's MFE can have separate secrets and audit trail | Isolated security boundaries |
 | **10** | **GitHub stays fast** – no 200k-file monorepo that takes 10 min to clone on Indian internet | Fast git operations, better DX |
 
-## ❌ CONS (Real Pain Points)
+### ❌ CONS (Real Pain Points)
 
 | # | Disadvantage | Real Impact |
 |---|--------------|-------------|
