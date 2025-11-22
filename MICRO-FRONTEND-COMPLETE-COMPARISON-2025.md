@@ -500,7 +500,7 @@ module.exports = {
 
 ```javascript
 // Workaround 1: Shared Dependencies (Complex)
-// webpack.config.js - ALL apps need this
+// webpack.config.js - ALL apps need this.
 module.exports = {
   externals: {
     react: 'React',
